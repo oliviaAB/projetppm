@@ -14,8 +14,8 @@ int main(int argc, char* argv[])
   //--------------------------------------------------------------------------
   // Read file "gargouille.ppm" into image (width and height)
   //--------------------------------------------------------------------------
-  image* myImage;
-  myImage=(image*)malloc(sizeof(myImage));
+  
+  image* myImage=new image;
   ppm_read_from_file(myImage, "gargouille.ppm");
 
   //--------------------------------------------------------------------------
@@ -23,11 +23,10 @@ int main(int argc, char* argv[])
   // write it into "gargouille_BW.ppm"
   //--------------------------------------------------------------------------
   // Copy image into image_bw
-  image* BWImage;
-  BWImage=(image*)malloc(sizeof(BWImage));
+  image* BWImage= new image;
   BWImage->width=myImage->width;
   BWImage->height=myImage->height;
-  BWImage->pixel=(u_char*)malloc(3 * BWImage->width * BWImage->height *sizeof(u_char));
+  BWImage->pixel=new u_char[3 * BWImage->width * BWImage->height];
   memcpy(BWImage->pixel, myImage->pixel, 3 * BWImage->width * BWImage->height * sizeof(u_char));
 
   // Desaturate image_bw
@@ -37,18 +36,17 @@ int main(int argc, char* argv[])
   ppm_write_to_file(BWImage, "gargouille_BW.ppm");
 
   // Free the desaturated image
-  free(BWImage);
+  delete(BWImage);
 
   //--------------------------------------------------------------------------
   // Create a resized copy of the image and
   // write it into "gargouille_small.ppm"
   //--------------------------------------------------------------------------
   // Copy image into image_small
-  image* smallImage;
-  smallImage=(image*)malloc(sizeof(BWImage));
+  image* smallImage=new image;
   smallImage->width=myImage->width;
   smallImage->height=myImage->height;
-  smallImage->pixel=(u_char*)malloc(3 * smallImage->width * smallImage->height *sizeof(u_char));
+  smallImage->pixel=new u_char[3 * smallImage->width * smallImage->height];
   memcpy(smallImage->pixel, myImage->pixel, 3 * smallImage->width * smallImage->height * sizeof(u_char));
 
   // Shrink image_small size 2-fold
@@ -58,8 +56,8 @@ int main(int argc, char* argv[])
   ppm_write_to_file(smallImage, "gargouille_small.ppm");
 
   // Free the not yet freed images
-  free(myImage);
-  free(smallImage);
+  delete(myImage);
+  delete(smallImage);
 
   return 0;
 }

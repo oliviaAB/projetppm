@@ -4,7 +4,7 @@
 #include <string.h>
 #include "fonctions.h"
 
-void ppm_write_to_file(image* image, char* filename)
+void ppm_write_to_file(image* image, const char* filename)
 {
 
   //Create the FILE
@@ -21,7 +21,7 @@ void ppm_write_to_file(image* image, char* filename)
 
 //-------------------------------------------------------------------------------
 
-void ppm_read_from_file(image* image, char* filename)
+void ppm_read_from_file(image* image, const char* filename)
 {
 
   FILE* ppm_input = fopen(filename, "rb");
@@ -30,7 +30,7 @@ void ppm_read_from_file(image* image, char* filename)
   fscanf(ppm_input, "P6\n%d %d\n255\n", &(image->width), &(image->height));
 
   // Allocate memory according to width and height
-  image->pixel = (u_char*) malloc(3 * (image->width) * (image->height) * sizeof(u_char));
+  image->pixel=new u_char[3 * (image->width) * (image->height)];
 
   // Read the actual image data
   fread(image->pixel, 3, (image->width) * (image->height), ppm_input);
@@ -61,7 +61,7 @@ void ppm_desaturate(image* image)
       assert(grey_lvl >= 0 && grey_lvl <=255);
 
       // Set the corresponding pixel's value in new_image
-      memset(&(image->pixel[3 * (y * image->width + x)]), grey_lvl, 3);   //MAYBE AN ERROR	
+      memset(&(image->pixel[3 * (y * image->width + x)]), grey_lvl, 3); 
     }
   }
 }
@@ -73,7 +73,7 @@ void ppm_shrink(image* image, int factor)
   // Compute new image size and allocate memory for the new image
   int new_width   = (image->width) / factor;
   int new_height  = (image->height) / factor;
-  u_char* new_image = (u_char*) malloc(3 * new_width * new_height * sizeof(*new_image));
+  u_char* new_image= new u_char[3 * new_width * new_height];
 
   // Precompute factor^2 (for performance reasons)
   int factor_squared = factor * factor;

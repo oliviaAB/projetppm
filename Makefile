@@ -1,10 +1,10 @@
-all: ppm.out
+all: ppm
 
-ppm.out: ppm.c fonctions.c fonctions.o
-	gcc -o ppm.out ppm.c fonctions.o	
+ppm: ppm.cpp fonctions.cpp fonctions.o
+	g++ -Wall -o ppm ppm.cpp fonctions.o	
 
-fonctions.o: fonctions.h fonctions.c
-	gcc -o fonctions.o fonctions.c -c
+fonctions.o: fonctions.h fonctions.cpp
+	g++ -Wall -o fonctions.o fonctions.cpp -c
 clean:
 	rm *.o
 
