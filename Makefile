@@ -1,10 +1,10 @@
 all: ppm
 
-ppm: ppm.cpp fonctions.cpp fonctions.o
-	g++ -Wall -o ppm ppm.cpp fonctions.o	
+ppm: ppm.cpp Image.cpp Image.o
+	g++ -Wall -o ppm ppm.cpp Image.o	
 
-fonctions.o: fonctions.h fonctions.cpp
-	g++ -Wall -o fonctions.o fonctions.cpp -c
+fonctions.o: Image.h Image.cpp
+	g++ -Wall -o Image.o Image.cpp -c
 clean:
 	rm *.o
 
