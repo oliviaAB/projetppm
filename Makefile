@@ -9,4 +9,4 @@ clean:
 	rm *.o
 
 mrproper: clean
-	rm ppm.out
+	rm ppm

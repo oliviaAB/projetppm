@@ -16,10 +16,10 @@ Image::Image(void)
 
 Image::Image(const Image& model)
 {
-  width=model.get_width();
-  height=model.get_height();
+  width=model.width;
+  height=model.height;
   pixel= new u_char[3 *width*height]; 
-  memcpy(pixel, model.get_pixel(), 3 *width*height*sizeof(u_char));
+  memcpy(pixel, model.pixel, 3 *width*height*sizeof(u_char));
 }
 
 //-------------------------------------------------------------------------------
@@ -158,16 +158,21 @@ void Image::ppm_shrink(int factor)
 
 int Image::get_width(void) const
 {
-  return(width);
+  return width;
 }
 
 int Image::get_height(void) const
 {
-  return(height);
+  return height;
 }
 
-u_char* Image::get_pixel(void) const
+const u_char* Image::get_pixel(void) const
 {
-  return(pixel);
+  return pixel;
+}
+
+void Image::deleter(void)
+{
+  delete(pixel);
 }
 

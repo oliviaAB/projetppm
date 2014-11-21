@@ -31,6 +31,8 @@ int main(int argc, char* argv[])
   // Write the desaturated image into "gargouille_BW.ppm"
   BWImage.ppm_write_to_file("gargouille_BWTEST.ppm");
 
+ BWImage.deleter();
+
   //--------------------------------------------------------------------------
   // Create a resized copy of the image and
   // write it into "gargouille_small.ppm"
@@ -43,5 +45,8 @@ int main(int argc, char* argv[])
 
   // Write the desaturated image into "gargouille_small.ppm"
   smallImage.ppm_write_to_file("gargouille_small.ppm");
+
+  smallImage.deleter();
+  myImage.deleter();
 
 }
